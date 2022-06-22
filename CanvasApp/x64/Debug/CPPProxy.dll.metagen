@@ -1,0 +1,80 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly CPPProxy, Version=0.0.*, Culture=固定语言(固定国家/地区): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Class CPLine: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Double, Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    Double Length : Public
+    Double X1 : Public
+    Double X2 : Public
+    Double Y1 : Public
+    Double Y2 : Public
+    System.Windows.Shapes.Line Shape : Public
+  Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class TopCpLineShape: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Collections.Generic.List`1[CPLine] OutLines : Public
+    System.Collections.Generic.List`1[System.Windows.Media.Media3D.Point3D] Pts : Public
+    System.Collections.Generic.List`1[CPSurfaceUnit] Mesh : Public
+Class CPCube: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :TopCpLineShape
+    Void .ctor(System.Windows.Point, Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    Double Width : Public
+    Double Length : Public
+    Double Height : Public
+    System.Windows.Point Position : Public
+  Methods:
+    Translate(Double, Double, Double): PrivateScope, Public, HideBySig
+    Scale(Double, Double, Double): PrivateScope, Public, HideBySig
+    RotateX(Double): PrivateScope, Public, HideBySig
+    RotateY(Double): PrivateScope, Public, HideBySig
+    RotateZ(Double): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class CPTransform2: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(TopCpLineShape): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    System.Collections.Generic.List`1[System.Windows.Point] Pts : Public
+    Double Angle : Public
+    Double Tx : Public
+    Double Ty : Public
+    Double Sx : Public
+    Double Sy : Public
+    System.Collections.Generic.List`1[System.Double] Matrix : Public
+    System.Collections.Generic.List`1[CPLine] OutLines : Public
+  Methods:
+    Translate(Double, Double): PrivateScope, Public, HideBySig
+    Scale(Double, Double): PrivateScope, Public, HideBySig
+    Rotate(Double, Double, Double): PrivateScope, Public, HideBySig
+    SetMatrix(Double, Double, Double, Double, Double, Double, Double, Double, Double): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class CPRect: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :TopCpLineShape
+    Void .ctor(System.ValueType, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    System.Collections.Generic.List`1[System.Windows.Point] OutLinePts : Public
+  Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
