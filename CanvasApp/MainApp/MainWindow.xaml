@@ -43,6 +43,11 @@
             <Button Content="↓" Width="70" Height="20" Click="TransDown_Click"/>
             <Button Content="旋转" Width="70" Height="20" Click="Rotate_Click"/>
             <Button Content="反旋转" Width="70" Height="20" Click="NeRotate_Click"/>
+            
+            <!--<Button Content="相机→" Width="70" Height="20" Click="viewRight"/>
+            <Button Content="相机←" Width="70" Height="20" Click="viewLeft"/>
+            <Button Content="相机↓" Width="70" Height="20" Click="viewDown"/>
+            <Button Content="相机↑" Width="70" Height="20" Click="viewUp"/>-->
         </WrapPanel>
     </Grid>
 </Window>

@@ -32,9 +32,21 @@ Class TopCpLineShape: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.Collections.Generic.List`1[CPLine] OutLines : Public
     System.Collections.Generic.List`1[System.Windows.Media.Media3D.Point3D] Pts : Public
     System.Collections.Generic.List`1[CPSurfaceUnit] Mesh : Public
-Class CPCube: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+Class CPAxis: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :TopCpLineShape
-    Void .ctor(System.Windows.Point, Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    CPLine XAxis : Public
+    CPLine YAxis : Public
+    CPLine ZAxis : Public
+    System.Collections.Generic.List`1[System.Windows.Media.Media3D.Point3D] Pts : Public
+  Methods:
+    SetCameraMatiax(Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class CPShape: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :TopCpLineShape
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
     System.IDisposable
@@ -44,11 +56,16 @@ Class CPCube: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Double Height : Public
     System.Windows.Point Position : Public
   Methods:
+    CreateCube(Point, Double, Double, Double): PrivateScope, Public, HideBySig
+    CreateCylind(Point3D, Double, Double, Double): PrivateScope, Public, HideBySig
+    CreatePyramid(Double, Double): PrivateScope, Public, HideBySig
+    CreateSphere(Point3D, Double, Double): PrivateScope, Public, HideBySig
     Translate(Double, Double, Double): PrivateScope, Public, HideBySig
     Scale(Double, Double, Double): PrivateScope, Public, HideBySig
     RotateX(Double): PrivateScope, Public, HideBySig
     RotateY(Double): PrivateScope, Public, HideBySig
     RotateZ(Double): PrivateScope, Public, HideBySig
+    SetCameraMatiax(Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
 Class CPTransform2: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(TopCpLineShape): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

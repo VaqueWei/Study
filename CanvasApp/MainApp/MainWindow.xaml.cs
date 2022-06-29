@@ -22,15 +22,19 @@ namespace MainApp
     public partial class MainWindow : Window
     {
         const int LINETHICKNESS = 5;
-
+        Point _startPt;
+        Point _endPt;
         bool _isMoving;
         bool _isSelecting = false;
         Point _startMovePosition;
         Path _currentBoxSelectedBorder = null;//框选矩形框
+        double _canvasScale = 1;
+        CPAxis _axis;
+        double angy = 0, angx = 0;
 
         Point _CPoint = new Point(740, 375);
         CPRect _rect;
-        CPCube _cube;
+        CPShape _shape;
         List<CPLine> _shapes;
         public MainWindow()
         {
@@ -49,39 +53,42 @@ namespace MainApp
 
         private void CreateAxis()
         {
-            Point xax = new Point(10000, 0);
-            Point yax = new Point(-3536, -3536);
-            Point zax = new Point(0, -10000);
-            SolidColorBrush brush = new SolidColorBrush();
-            brush.Color = Colors.Red;
-            Line xAxis = new Line() { StrokeThickness = 1, X1 = 0 + 740, Y1 = 0 + 375, X2 = xax.X + 740, Y2 = xax.Y + 375, Stroke = brush };
-            Line yAxis = new Line() { StrokeThickness = 1, X1 = 0 + 740, Y1 = 0 + 375, X2 = yax.X + 740, Y2 = yax.Y + 375, Stroke = brush };
-            Line zAxis = new Line() { StrokeThickness = 1, X1 = 0 + 740, Y1 = 0 + 375, X2 = zax.X + 740, Y2 = zax.Y + 375, Stroke = brush };
-            _canvas.Children.Add(xAxis);
-            _canvas.Children.Add(yAxis);
-            _canvas.Children.Add(zAxis);
+            CPAxis axis = new CPAxis();
+            SolidColorBrush redBrush = new SolidColorBrush(Colors.Red);
+            SolidColorBrush greenBrush = new SolidColorBrush(Colors.Green);
+            SolidColorBrush blueBrush = new SolidColorBrush(Colors.Blue);
+            axis.XAxis.Shape.Stroke = redBrush;
+            axis.YAxis.Shape.Stroke = greenBrush;
+            axis.ZAxis.Shape.Stroke = blueBrush;
+            _axis = axis;
         }
         private void CreateRect()
         {
             CPRect rect = new CPRect(new Point(740, 375), 200, 200);
             _shapes = rect.OutLines;
             _rect = rect;
-            DrawLines(rect.OutLines);
+            DrawLines();
         }
 
         private void CreateCube()
         {
-            CPCube cube = new CPCube(new Point(0, 0), 300, -200, 100);
-            _cube = cube;
-            DrawLines(cube.OutLines);
+            CPShape shape = new CPShape();
+            shape.CreateCylind(new Point3D(0, 0, 0), 100, 300, 32);
+            //shape.CreateSphere(new Point3D(0, 0, 0), 200, 32);
+            _shape = shape;
+            DrawLines();
         }
-        private void DrawLines(List<CPLine> lines)
+        private void DrawLines()
         {
+            var lines = _shape.OutLines;
             foreach (var item in _shapes)
             {
                 _canvas.Children.Remove(item.Shape);
             }
 
+            _canvas.Children.Remove(_axis.XAxis.Shape);
+            _canvas.Children.Remove(_axis.YAxis.Shape);
+            _canvas.Children.Remove(_axis.ZAxis.Shape);
             _shapes = new List<CPLine>();
             foreach (var line in lines)
             {
@@ -91,14 +98,21 @@ namespace MainApp
                 _shapes.Add(line);
                 _canvas.Children.Add(line.Shape);
             }
+            _canvas.Children.Add(_axis.XAxis.Shape);
+            _canvas.Children.Add(_axis.YAxis.Shape);
+            _canvas.Children.Add(_axis.ZAxis.Shape);
+        }
+
+        private void ChangeView(Point start, Point end)
+        {
+
         }
         #region 鼠标滚轮控制界面放大缩小、框选事件
         private void border_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Right)
+            if (e.ChangedButton == MouseButton.Left)
             {
-                _canvas.Cursor = Cursors.Arrow;
-                _isSelecting = false;
+                _startPt = e.GetPosition(_canvas);
             }
 
             if (e.MiddleButton == MouseButtonState.Pressed
@@ -119,6 +133,14 @@ namespace MainApp
 
         private void border_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                _endPt = e.GetPosition(_canvas);
+                if (Math.Abs(_startPt.X - _endPt.X) > 1 || Math.Abs(_startPt.Y - _endPt.Y) > 1)
+                {
+                    ChangeView(_startPt, _endPt);
+                }
+            }
             if (_isMoving)
             {
                 _isMoving = false;
@@ -345,12 +367,12 @@ namespace MainApp
             if (e.Delta > 0)
             {
                 scale = 1.08;
-                //_canvasScale = _canvasScale * 1.6;
+                _canvasScale /= 1.18;
             }
             else
             {
                 scale = 0.92;
-                //_canvasScale = _canvasScale / 1.6;
+                _canvasScale *= 1.18;
             }
 
             //centerX和centerY用外部包装元素的坐标，不能用内部被变换的Canvas元素的坐标
@@ -373,19 +395,19 @@ namespace MainApp
             switch (_rotAxis.Text)
             {
                 case "X":
-                    _cube.RotateX(Math.PI / 10);
+                    _shape.RotateX(Math.PI / 10);
                     break;
                 case "Y":
-                    _cube.RotateZ(Math.PI / 10);
+                    _shape.RotateY(Math.PI / 10);
                     break;
                 case "Z":
-                    _cube.RotateY(Math.PI / 10);
+                    _shape.RotateZ(Math.PI / 10);
                     break;
                 default:
-                    _cube.RotateX(Math.PI / 10);
+                    _shape.RotateX(Math.PI / 10);
                     break;
             }
-            DrawLines(_cube.OutLines);
+            DrawLines();
         }
 
         private void TransUP_Click(object sender, RoutedEventArgs e)
@@ -394,19 +416,19 @@ namespace MainApp
             switch (_rotAxis.Text)
             {
                 case "X":
-                    _cube.Translate(20, 0, 0);
+                    _shape.Translate(20, 0, 0);
                     break;
                 case "Y":
-                    _cube.Translate(0, 0, 20);
+                    _shape.Translate(0, 20, 0);
                     break;
                 case "Z":
-                    _cube.Translate(0, -20, 0);
+                    _shape.Translate(0, 0, 20);
                     break;
                 default:
-                    _cube.Translate(20, 0, 0);
+                    _shape.Translate(20, 0, 0);
                     break;
             }
-            DrawLines(_cube.OutLines);
+            DrawLines();
         }
 
         private void TransDown_Click(object sender, RoutedEventArgs e)
@@ -414,19 +436,19 @@ namespace MainApp
             switch (_rotAxis.Text)
             {
                 case "X":
-                    _cube.Translate(-20, 0, 0);
+                    _shape.Translate(-20, 0, 0);
                     break;
                 case "Y":
-                    _cube.Translate(0, 0, -20);
+                    _shape.Translate(0, -20, 0);
                     break;
                 case "Z":
-                    _cube.Translate(0, 20, 0);
+                    _shape.Translate(0, 0, -20);
                     break;
                 default:
-                    _cube.Translate(-20, 0, 0);
+                    _shape.Translate(-20, 0, 0);
                     break;
             }
-            DrawLines(_cube.OutLines);
+            DrawLines();
         }
 
 
@@ -436,19 +458,80 @@ namespace MainApp
             switch (_rotAxis.Text)
             {
                 case "X":
-                    _cube.RotateX(-Math.PI / 10);
+                    _shape.RotateX(-Math.PI / 10);
                     break;
                 case "Y":
-                    _cube.RotateZ(-Math.PI / 10);
+                    _shape.RotateY(-Math.PI / 10);
                     break;
                 case "Z":
-                    _cube.RotateY(-Math.PI / 10);
+                    _shape.RotateZ(-Math.PI / 10);
                     break;
                 default:
-                    _cube.RotateX(-Math.PI / 10);
+                    _shape.RotateX(-Math.PI / 10);
                     break;
             }
-            DrawLines(_cube.OutLines);
+            DrawLines();
+        }
+
+        private void viewRight(object sender, RoutedEventArgs e)
+        {
+            //double angx = Math.PI / 10;
+            angy += Math.PI / 20;
+
+            _shape.SetCameraMatiax(
+                Math.Cos(angy), 0, Math.Sin(angy), 0,
+                0, 1, 0, 0,
+                -Math.Sin(angy), 0, Math.Cos(angy), 0);
+            _axis.SetCameraMatiax(
+                Math.Cos(angy), 0, Math.Sin(angy), 0,
+                0, 1, 0, 0,
+                -Math.Sin(angy), 0, Math.Cos(angy), 0);
+            DrawLines();
+        }
+
+        private void viewLeft(object sender, RoutedEventArgs e)
+        {
+            angy -= Math.PI / 20;
+            _shape.SetCameraMatiax(
+                Math.Cos(angy), 0, Math.Sin(angy), 0,
+                0, 1, 0, 0,
+                -Math.Sin(angy), 0, Math.Cos(angy), 0);
+            _axis.SetCameraMatiax(
+                Math.Cos(angy), 0, Math.Sin(angy), 0,
+                0, 1, 0, 0,
+                -Math.Sin(angy), 0, Math.Cos(angy), 0);
+            DrawLines();
+        }
+
+        private void viewDown(object sender, RoutedEventArgs e)
+        {
+             angx += Math.PI / 20;
+            //double angy = Math.PI / 10;
+            _shape.SetCameraMatiax(
+                1, 0, 0, 0,
+                0, Math.Cos(-angx), -Math.Sin(-angx), 0,
+                0, Math.Sin(-angx), Math.Cos(-angx), 0);
+
+            _axis.SetCameraMatiax(
+      1, 0, 0, 0,
+      0, Math.Cos(-angx), -Math.Sin(-angx), 0,
+      0, Math.Sin(-angx), Math.Cos(-angx), 0);
+            DrawLines();
+        }
+
+        private void viewUp(object sender, RoutedEventArgs e)
+        {
+             angx -= Math.PI / 20;
+            //double angy = Math.PI / 10;
+            _shape.SetCameraMatiax(
+                1, 0, 0, 0,
+                0, Math.Cos(-angx), -Math.Sin(-angx), 0,
+                0, Math.Sin(-angx), Math.Cos(-angx), 0);
+            _axis.SetCameraMatiax(
+      1, 0, 0, 0,
+      0, Math.Cos(-angx), -Math.Sin(-angx), 0,
+      0, Math.Sin(-angx), Math.Cos(-angx), 0);
+            DrawLines();
         }
     }
 }

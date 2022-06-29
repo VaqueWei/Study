@@ -8,19 +8,12 @@ class CPyramid :public TopLineShape
 {
 public:
 	CPyramid();
-	CPyramid(double edgeNum, double height);
+	CPyramid(double width, double height);
 	~CPyramid();
 	void ReadPoint();
-	void ReadLine();
-	void ReadFace();
-
-	void Translate(double tx, double ty, double tz);
-	void Scale(double sx, double sy, double sz);
-	void RotateX(double angle);
-	void RotateY(double angle);
-	void RotateZ(double angle);
+	void ReadMesh();
 public:
-	double EdgeNum;
+	double Width;
 	double Height;
 };
 

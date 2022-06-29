@@ -139,13 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAxis.h" />
+    <ClInclude Include="CCircle.h" />
     <ClInclude Include="CCube.h" />
+    <ClInclude Include="CCylind.h" />
     <ClInclude Include="CFace.h" />
     <ClInclude Include="CLine.h" />
     <ClInclude Include="CP2.h" />
     <ClInclude Include="CP3.h" />
     <ClInclude Include="CPyramid.h" />
     <ClInclude Include="CRect.h" />
+    <ClInclude Include="CSphere.h" />
     <ClInclude Include="CTransform2.h" />
     <ClInclude Include="CTransform3.h" />
     <ClInclude Include="SurfaceUnit.h" />
@@ -153,13 +157,17 @@
     <ClInclude Include="CVector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAxis.cpp" />
+    <ClCompile Include="CCircle.cpp" />
     <ClCompile Include="CCube.cpp" />
+    <ClCompile Include="CCylind.cpp" />
     <ClCompile Include="CFace.cpp" />
     <ClCompile Include="CLine.cpp" />
     <ClCompile Include="CP2.cpp" />
     <ClCompile Include="CP3.cpp" />
     <ClCompile Include="CPyramid.cpp" />
     <ClCompile Include="CRect.cpp" />
+    <ClCompile Include="CSphere.cpp" />
     <ClCompile Include="CTransform2.cpp" />
     <ClCompile Include="CTransform3.cpp" />
     <ClCompile Include="SurfaceUnit.cpp" />

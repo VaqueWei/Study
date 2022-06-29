@@ -3,7 +3,6 @@
 CCube::CCube()
 {
 	P.resize(8);
-	OtmopLine.resize(12);
 	Width = 1, Length = 1, Height = 1;
 	ReadPoint();
 	ReadMesh();
@@ -13,7 +12,6 @@ CCube::CCube()
 CCube::CCube(CP3 position, double length, double width, double height)
 {
 	P.resize(8);
-	OtmopLine.resize(12);
 	Width = width, Length = length, Height = height;
 	ReadPoint();
 	ReadMesh();

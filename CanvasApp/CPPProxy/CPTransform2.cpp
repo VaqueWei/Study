@@ -59,6 +59,8 @@ void CPTransform2::SetMatrix(
 	OutLines = Pts2CPLine(Pts);
 }
 
+
+
 vector<CP2> CPTransform2::List2Pointer(List<Point>^ pts)
 {
 	vector<CP2> result;

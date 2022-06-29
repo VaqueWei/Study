@@ -51,6 +51,18 @@
     <ClInclude Include="CVector.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CCircle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CCylind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CSphere.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CAxis.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLine.cpp">
@@ -87,6 +99,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CVector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCircle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCylind.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CSphere.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CAxis.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -27,13 +27,16 @@
     <ClInclude Include="TopCpLineShape.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CPCube.h">
+    <ClInclude Include="CPShape.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NCollection_Haft.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CPSurfaceUnit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CPAxis.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,13 +53,16 @@
     <ClCompile Include="TopCpLineShape.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CPCube.cpp">
+    <ClCompile Include="CPSape.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NCollection_Haft.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CPSurfaceUnit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CPAxis.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

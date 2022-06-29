@@ -21,6 +21,7 @@ public:
 		double m21, double m22, double m23,
 		double m31, double m32, double m33
 	);
+
 public:
 	List<Point>^ Pts;
 	double Angle;

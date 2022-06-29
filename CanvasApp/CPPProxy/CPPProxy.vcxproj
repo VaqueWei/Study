@@ -113,7 +113,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CPCube.h" />
+    <ClInclude Include="CPAxis.h" />
+    <ClInclude Include="CPShape.h" />
     <ClInclude Include="CPLine.h" />
     <ClInclude Include="CPRect.h" />
     <ClInclude Include="CPSurfaceUnit.h" />
@@ -122,7 +123,8 @@
     <ClInclude Include="TopCpLineShape.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CPCube.cpp" />
+    <ClCompile Include="CPAxis.cpp" />
+    <ClCompile Include="CPSape.cpp" />
     <ClCompile Include="CPLine.cpp" />
     <ClCompile Include="CPRect.cpp" />
     <ClCompile Include="CPSurfaceUnit.cpp" />
